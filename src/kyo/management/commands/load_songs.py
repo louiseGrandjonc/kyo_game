@@ -26,13 +26,15 @@ class Command(BaseCommand):
             'Bouncing Souls': 'bouncingsouls',
             'Nickelback': 'nickelback'
         }
+        nb_calls = 0
         for artist_name, azlyrics_name in azlyrics_dict.items():
             artist = Artist.objects.get_or_create(name=artist_name)[0]
 
             artist_songs = songs(azlyrics_name)
+            nb_calls += 1
 
             for album_name, values in artist_songs['albums'].items():
-                wait(1)
+                wait(3)
 
                 album = Album.objects.get_or_create(
                     artist=artist,
@@ -40,6 +42,10 @@ class Command(BaseCommand):
                     year=values['year'])[0]
 
                 for song_name in values['songs']:
+
+                    if nb_calls > 300:
+                        return
+
                     song = Song.objects.get_or_create(name=song_name, album=album)[0]
 
                     if song.lyrics.count():
@@ -49,4 +55,5 @@ class Command(BaseCommand):
                                              song_name.encode("ascii", errors="ignore").decode())
 
                     lyrics_obj = Lyrics.objects.create(content=azlyrics_lyrics[0], song=song)
+                    nb_calls += 1
                     wait(3)
