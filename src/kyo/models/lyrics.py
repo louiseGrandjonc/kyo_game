@@ -3,6 +3,7 @@ from django.db import models
 
 from .album import Album
 from .song import Song
+from .artist import Artist
 
 
 class Lyrics(models.Model):
@@ -24,12 +25,10 @@ class Lyrics(models.Model):
 
 class Word(models.Model):
     value = models.CharField(max_length=255)
-    number_of_occurences = models.IntegerField(default=0)
-    lyrics = models.ManyToManyField(Lyrics, through='WordLyrics')
+    album = models.ForeignKey(Album, null=True, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, null=True, related_name='words', on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, null=True, related_name='words', on_delete=models.CASCADE)
+    position = models.IntegerField(default=0)
 
-
-class WordLyrics(models.Model):
-    lyrics = models.ForeignKey(Lyrics)
-    album = models.ForeignKey(Album)
-    word = models.ForeignKey(Word)
-    position = ArrayField(models.IntegerField(), null=True)
+    def __str__(self):
+        return '%s: %s: %d' % (self.song.name, self.value, self.position)

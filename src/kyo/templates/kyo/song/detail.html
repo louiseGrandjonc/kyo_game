@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml"  xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <head>
+  </head>
+
+  <body>
+
+    <div class='album'>
+      <span>Album: </span>
+      {{ object.album.name }} - {{ object.album.year }}
+    </div>
+
+    <div class='songname'>
+      <span>Song: </span>
+      {{ object.name }}
+    </div>
+
+    <div class=lyrics'>
+      <span>Lyrics: </span>
+      {{ lyrics.content }}
+    </div>
+
+    <div class='topten'>
+      <span><br>Top 10 words in the song</br></span>
+
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>Occurences</th> 
+        </tr>
+
+        {% for word in top %}
+        <tr>
+          <td>{{ word.value }}</td>
+          <td>{{ word.total }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class='groupofwords'>
+      <span><br>Group of two words repeated</br></span>
+
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>Next word</th>
+          <th>Occurences</th>
+        </tr>
+
+        {% for word in words_in_chorus %}
+        <tr>
+          <td>{{ word.value }}</td>
+          <td>{{ word.next_word }}</td>
+          <td>{{ word.total }}</td>
+        </tr>
+
+        {% endfor %}
+      </table>
+
+
+
+    </div>
+
+    <div class='topten'>
+      <span><br>Top 10 words outside of chorus</br></span>
+
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>Occurences</th>
+        </tr>
+
+        {% for word in top_no_chorus %}
+        <tr>
+          <td>{{ word.value }}</td>
+          <td>{{ word.total }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+
+    <div class='unique words'>
+      <span><br>Words that the artist used only in this song</br></span>
+
+      <ul>
+        {% for word in unique_words %}
+        <li>
+          {{ word.value }}
+        </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </body>
+
+</html>

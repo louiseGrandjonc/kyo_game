@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml"  xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <head>
+  </head>
+
+  <body>
+
+    <div class='artist'>
+      <span>Artist: </span>
+      {{ object.name }}
+    </div>
+
+    <div class=albums'>
+      <span><br>Albums ranked by popularity</br></span>
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Popularity</th>
+          <th>Rank</th>
+        </tr>
+
+        {% for album in album_by_popularity %}
+        <tr>
+          <td>{{ album.name }}</td>
+          <td>{{ album.year }}</td>
+          <td>{{ album.popularity }}</td>
+          <td>{{ album.ranking }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+
+        <table>
+        <tr>
+          <th>Album</th>
+          <th>Album pk</th>
+          <th>Year</th>
+          <th>Next album</th>
+          <th>Next album pk</th>
+          <th>Year</th>
+        </tr>
+
+        {% for album in albums %}
+        <tr>
+          <td>{{ album.name }}</td>
+          <td>{{ album.pk }}</td>
+          <td>{{ album.year }}</td>
+          <td>{{ album.next_album_name }}</td>
+          <td>{{ album.next_album_pk }}</td>
+          <td>{{ album.next_album_year }}</td>
+        </tr>
+        {% endfor %}
+
+        </table>
+      </div>
+
+
+
+    <div class='topword'>
+
+      <span><br>Top words per album</br></span>
+
+      <table>
+        <tr>
+          <th>Album</th>
+          <th>Word</th>
+          <th>Frequency</th>
+          <th>Rank</th>
+        </tr>
+
+        {% for word in top_10_words %}
+        <tr>
+          <td>{{ word.value }}</td>
+          <td>{{ word.album_name }}</td>
+          <td>{{ word.frequency }}</td>
+          <td>{{ word.ranking }}</td>
+        </tr>
+        {% endfor %}
+
+      </table>
+    </div>
+
+
+    <div class='topword'>
+
+      <span><br>Top words for this artis</br></span>
+
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>Frequency</th>
+          <th>Used in songs</th>
+        </tr>
+
+        {% for word in top_words %}
+        <tr>
+          <td>{{ word.value }}</td>
+          <td>{{ word.total }}</td>
+          <td>{{ word.in_songs }}</td>
+        </tr>
+        {% endfor %}
+
+      </table>
+    </div>
+
+
+  </body>
+</div>
